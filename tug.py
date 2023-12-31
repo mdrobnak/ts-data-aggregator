@@ -45,6 +45,7 @@ def process_listings(data):
             points = "-1"
             season = "unk"
             freq = "unk"
+            eid = elements["id"].split("-")[1]
             el = elements.find(class_="col-md-10")
             fp = el.find_all(class_="col-md-8 col-lg-8 col-xl-8")[1].text
             points = int(
@@ -76,34 +77,47 @@ def process_listings(data):
                 if re.search(".*([Aa]nnual).*", unit):
                     freq = "Annual"
                 if re.search(".*(even).*", unit.lower()):
-                    freq = "Even Years"
+                    freq = "Biennial-Even"
                 if re.search(".*(odd).*", unit.lower()):
-                    freq = "Odd Years"
+                    freq = "Biennial-Odd"
 
-                if (
-                    mf != "-1"
-                    and price <= max_price
-                    and points != "-1"
-                    and season == data["season"].lower()
-                    and freq != "unk"
-                    and int(points) >= int(data["points"])
-                ):
-                    rows.append(
-                        [
-                            0,
-                            data["name"],
-                            price,
-                            freq,
-                            data["beds"],
-                            data["beds"],
-                            points,
-                            url,
-                            float(price) / float(points),
-                            float(mf) / float(points),
-                            mf,
-                            float(points) / float(data["max_points"]),
-                        ]
-                    )  # 9 temitems
+                if freq == "unk":
+                    fr = elements.find_all(attrs={"id": "Description-" + eid})
+                    for fs in fr:
+                        fs = fs.text.strip()
+                        if re.search(".*(EY).*", fs):
+                            freq = "Annual"
+                        if re.search(".*(EOYE).*", fs):
+                            freq = "Biennial-Even"
+                        if re.search(".*(EOYO).*", fs):
+                            freq = "Biennial-Odd"
+
+            if mf == "-1" or points == "-1" or freq == "unk":
+                print(eid, price, freq, points, mf)
+
+            if (
+                mf != "-1"
+                and price <= max_price
+                and points != "-1"
+                and freq != "unk"
+                and int(points) >= int(data["points"])
+            ):
+                rows.append(
+                    [
+                        0,
+                        data["name"],
+                        price,
+                        freq,
+                        data["beds"],
+                        data["beds"],
+                        points,
+                        url,
+                        float(price) / float(points),
+                        float(mf) / float(points),
+                        mf,
+                        float(points) / float(data["max_points"]),
+                    ]
+                )  # 9 temitems
         return rows
     else:
         return []

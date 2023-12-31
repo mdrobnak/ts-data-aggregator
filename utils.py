@@ -28,29 +28,31 @@ def minimize(rows, max_points):
     headers = get_headers()
     df = pandas.DataFrame(rows, columns=headers[0:12])
     df = df.astype({"List Price": "int"})
-    #    pprint.pprint(df)
+    # pprint.pprint(df)
     df.drop_duplicates(
-        subset=["Resort", "List Price", "Bed", "Bath", "Points"], inplace=True
+        subset=["Resort", "List Price", "Usage", "Bed", "Bath", "Points"], inplace=True
     )
-    #    pprint.pprint(df)
-    for points in df["Points"].unique():
-        print("Points: " + str(points))
-        # Get just the rows which match the points in question
-        #        print("Find the rows with that point value...")
-        df_points = df.loc[df["Points"] == points]
-        #        pprint.pprint(df_points)
-        # Find the lowest cost for that point value.
-        l = df_points.loc[df_points["List Price"].idxmin()].to_list()
-        #        print("Lowest row:")
-        #        pprint.pprint(l)
-        # Stupid Datatypes.
-        l[0] = int(l[0])
-        l[2] = int(l[2])
-        l[4] = int(l[4])
-        l[5] = int(l[5])
-        l[6] = int(l[6])
-        l[8] = float(l[8])
-        final_rows.append(l)
-    #    print("Returned final rows:")
-    #   pprint.pprint(final_rows)
+    # pprint.pprint(df)
+    for usage in df["Usage"].unique():
+        for points in df["Points"].unique():
+            print("Points: " + str(points))
+            # Get just the rows which match the points in question
+            # print("Find the rows with that point value and season...")
+            df_points = df.loc[(df["Points"] == points) & (df["Usage"] == usage)]
+            # pprint.pprint(df_points)
+            # Find the lowest cost for that point value and season.
+            if not df_points.empty:
+                l = df_points.loc[df_points["List Price"].idxmin()].to_list()
+                # print("Lowest row:")
+                # pprint.pprint(l)
+                # Stupid Datatypes.
+                l[0] = int(l[0])
+                l[2] = int(l[2])
+                l[4] = int(l[4])
+                l[5] = int(l[5])
+                l[6] = int(l[6])
+                l[8] = float(l[8])
+                final_rows.append(l)
+    # print("Returned final rows:")
+    # pprint.pprint(final_rows)
     return final_rows

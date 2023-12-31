@@ -32,12 +32,14 @@ def get_listings():
             season = row.find("td", {"data-title": "Season"}).text.strip()
             size = row.find("td", {"data-title": "Size"}).text.strip()
             if re.search(".*[Ss]tudio.*", size):
-                beds = 1
+                beds = 0
+                baths = 1
             elif re.search(".*[Vv]aries.*", size):
                 beds = 3
+                baths = 2
             else:
                 beds = re.search(".*(\d+)\s+[Bb]ed.*", size).group(1)
-            baths = beds
+                baths = beds
             rows.append(
                 [
                     0,
@@ -70,6 +72,12 @@ def process_listings(listings, data):
         tgt_resort = "Hilton King’s Land"
     elif data["name"] == "Ocean Tower at Hilton Waikoloa Village":
         tgt_resort = "Hilton Ocean Tower"
+    elif data["name"] == "The District by Hilton Club":
+        tgt_resort = "Hilton Club District"
+    elif data["name"] == "The Residences by The Hilton Club":
+        tgt_resort = "Hilton Club New York Residences"
+    elif data["name"] == "West 57th Street by Hilton Club":
+        tgt_resort = "Hilton West 57th St"
     else:
         tgt_resort = data["name"]
 
@@ -85,9 +93,9 @@ def process_listings(listings, data):
 
     for row in listings:
         if re.search(".*(even).*", row[usage].lower()):
-            row[usage] = "Even Years"
+            row[usage] = "Biennial-Even"
         if re.search(".*(odd).*", row[usage].lower()):
-            row[usage] = "Odd Years"
+            row[usage] = "Biennial-Odd"
         if re.search(".*([Aa]nnual).*", row[usage]):
             row[usage] = "Annual"
 
@@ -138,7 +146,7 @@ def get_maint(final_rows):
             maint = float(details)
             row[9] = maint / float(row[6])
             row[10] = maint
-            time.sleep(1)
+            time.sleep(0.25)
         else:
             continue
     # Gather Maintenance and Taxes from resulting page, add to spreadsheet.

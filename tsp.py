@@ -27,7 +27,7 @@ def process_listings(data):
         + str(max_price)
         + "/"
         + str(data["season"])
-        + "/N/N/Annual/N/"
+        + "/N/N/N/N/"
         + beds_param
         + "/N/Results.html"
     )
@@ -105,7 +105,7 @@ def get_maint(final_rows):
                         taxes = float(details[1])
                         row[9] = (maint + taxes) / float(row[6])
                         row[10] = maint + taxes
-            time.sleep(1)
+            time.sleep(0.25)
         else:
             continue
     # Gather Maintenance and Taxes from resulting page, add to spreadsheet.

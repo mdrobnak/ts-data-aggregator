@@ -139,7 +139,7 @@ def update_gs(service, spreadsheet_id, headers, final_rows):
         {"columnNumber": 1, "width": 80},
         {"columnNumber": 2, "width": 280},
         {"columnNumber": 3, "width": 100},
-        {"columnNumber": 4, "width": 80},
+        {"columnNumber": 4, "width": 100},
         {"columnNumber": 5, "width": 80},
         {"columnNumber": 6, "width": 80},
         {"columnNumber": 7, "width": 80},

@@ -51,7 +51,7 @@ with open("full.json") as json_file:
         results += utils.minimize(listings, data[item]["max_points"])
         # print("Minimized:")
         # print(results)
-        time.sleep(1)
+        time.sleep(0.25)
 
 # print("Final results:")
 # pprint.pprint(results)

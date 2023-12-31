@@ -89,16 +89,15 @@ def process_listings(listings, data):
 
     for row in listings:
         if re.search(".*(even).*", row[freq].lower()):
-            row[freq] = "Even Years"
+            row[freq] = "Biennial-Even"
         if re.search(".*(odd).*", row[freq].lower()):
-            row[freq] = "Odd Years"
+            row[freq] = "Biennial-Odd"
         if re.search(".*([Aa]nnual).*", row[freq]):
             row[freq] = "Annual"
 
         if (
             int(row[2]) <= max_price
             and row[1] == tgt_resort
-            and row[freq] == "Annual"
             and int(row[6]) >= data["points"]
             and data["beds"] == row[beds]
         ):

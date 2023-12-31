@@ -74,9 +74,9 @@ def process_listings(data):
             #            print(pr)
             #            count += 1
             if re.search(".*(even).*", usage.lower()):
-                usage = "Even Years"
+                usage = "Biennial-Even"
             if re.search(".*(odd).*", usage.lower()):
-                usage = "Odd Years"
+                usage = "Biennial-Odd"
             if re.search(".*([Aa]nnual).*", usage):
                 usage = "Annual"
             if (
@@ -84,7 +84,6 @@ def process_listings(data):
                 and price <= max_price
                 and points != "-1"
                 and season != "unk"
-                and usage == "Annual"
                 and data["beds"] == int(beds)
                 and points >= data["points"]
             ):
@@ -128,7 +127,7 @@ def get_maint(final_rows):
             maint = float(details)
             row[9] = maint / float(row[6])
             row[10] = maint
-            time.sleep(1)
+            time.sleep(0.25)
         else:
             continue
     # Gather Maintenance and Taxes from resulting page, add to spreadsheet.
