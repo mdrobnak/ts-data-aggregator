@@ -152,5 +152,16 @@
     "season": "Platinum",
     "tsbs_name": "west-57th-street-hilton-grand-vacations-club",
     "tug_resort_id": 14855
+  },
+  "West 57th Street by Hilton Club Studio": {
+    "beds": 0,
+    "max_points": 11520,
+    "name": "West 57th Street by Hilton Club",
+    "points": 8000,
+    "query_name": "WEST+57TH+STREET+BY+HILTON+CLUB+HGVC",
+    "price_factor": 0.8,
+    "season": "Platinum",
+    "tsbs_name": "west-57th-street-hilton-grand-vacations-club",
+    "tug_resort_id": 14855
   }
 }
