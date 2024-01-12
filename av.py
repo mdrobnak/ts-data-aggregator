@@ -79,13 +79,16 @@ def process_listings(listings, data):
     baths = 5
     points = 6
     link = 7
+    pr_per_point = 8
     maint = 10
 
     for row in listings:
         if re.search(".*(even).*", row[freq].lower()):
             row[freq] = "Biennial-Even"
+            row[pr_per_point] = 2.0 * row[pr_per_point]
         if re.search(".*(odd).*", row[freq].lower()):
             row[freq] = "Biennial-Odd"
+            row[pr_per_point] = 2.0 * row[pr_per_point]
         if re.search(".*([Aa]nnual).*", row[freq]):
             row[freq] = "Annual"
 
@@ -94,8 +97,9 @@ def process_listings(listings, data):
             and row[1] == tgt_resort
             and int(row[6]) >= data["points"]
             and data["beds"] == row[beds]
+            and row[pr_per_point] <= data["max_pr_per_point"]
         ):
-            row[7] = '=HYPERLINK("' + row[7] + '", "AV")'
+            row[link] = '=HYPERLINK("' + row[link] + '", "AV")'
             rows.append(
                 [
                     0,
@@ -105,8 +109,8 @@ def process_listings(listings, data):
                     int(row[beds]),
                     int(row[baths]),
                     int(row[points]),
-                    row[7],
-                    row[8],
+                    row[link],
+                    row[pr_per_point],
                     row[9],
                     row[10],
                     float(row[6]) / float(data["max_points"]),

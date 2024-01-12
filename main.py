@@ -17,6 +17,10 @@ with open("config.json") as js_file:
     config = json.load(js_file)
 
 google_spreadsheet_id = config["google_sheet_id"]
+if not config.get("max_pr_per_point"):
+    max_pr_per_point = 0.75
+else:
+    max_pr_per_point = config["max_pr_per_point"]
 # Test the Google Sheets stuff early, I hope...
 service = gs.init_gs()
 if not gs.create_gs(service, google_spreadsheet_id):
@@ -34,6 +38,8 @@ av_listings = av.get_listings()
 with open("full.json") as json_file:
     data = json.load(json_file)
     for item in data:
+        if not data.get("max_pr_per_point"):
+            data[item]["max_pr_per_point"] = max_pr_per_point
         print("Processing " + item)
         #        print("Judy:")
         #        print(listings)

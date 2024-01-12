@@ -1,3 +1,4 @@
+import re
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -61,7 +62,19 @@ def process_listings(data):
             # print(td_array)
             if td_array[baths] == "":
                 td_array[baths] = td_array[beds]
-            if int(td_array[beds]) == data["beds"]:
+            if re.search(".*(even).*", td_array[freq].lower()):
+                td_array[freq] = "Biennial-Even"
+                pr_per_point = 2.0 * float(td_array[price]) / float(td_array[points])
+            if re.search(".*(odd).*", td_array[freq].lower()):
+                td_array[freq] = "Biennial-Odd"
+                pr_per_point = 2.0 * float(td_array[price]) / float(td_array[points])
+            if re.search(".*([Aa]nnual).*", td_array[freq]):
+                td_array[freq] = "Annual"
+                pr_per_point = 1.0 * float(td_array[price]) / float(td_array[points])
+            if (
+                int(td_array[beds]) == data["beds"]
+                and pr_per_point <= data["max_pr_per_point"]
+            ):
                 rows.append(
                     [
                         td_array[0],
@@ -72,12 +85,12 @@ def process_listings(data):
                         int(td_array[baths]),
                         int(td_array[points]),
                         td_array[link],
-                        float(td_array[price]) / float(td_array[points]),
+                        pr_per_point,
                         0.0,
                         0.0,
                         float(td_array[points]) / float(data["max_points"]),
                     ]
-                )  # 9 temitems
+                )  # 9 items
             # Zero holders for Maintenance
         return rows
     else:

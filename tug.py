@@ -87,10 +87,13 @@ def process_listings(data):
                         fs = fs.text.strip()
                         if re.search(".*(EY).*", fs):
                             freq = "Annual"
+                            pr_per_point = 1.0 * float(price) / float(points)
                         if re.search(".*(EOYE).*", fs):
                             freq = "Biennial-Even"
+                            pr_per_point = 2.0 * float(price) / float(points)
                         if re.search(".*(EOYO).*", fs):
                             freq = "Biennial-Odd"
+                            pr_per_point = 2.0 * float(price) / float(points)
 
             if mf == "-1" or points == "-1" or freq == "unk":
                 print(eid, price, freq, points, mf)
@@ -101,6 +104,7 @@ def process_listings(data):
                 and points != "-1"
                 and freq != "unk"
                 and int(points) >= int(data["points"])
+                and pr_per_point <= data["max_pr_per_point"]
             ):
                 rows.append(
                     [
@@ -112,12 +116,12 @@ def process_listings(data):
                         data["beds"],
                         points,
                         '=HYPERLINK("' + url + '", "TUG")',
-                        float(price) / float(points),
+                        pr_per_point,
                         float(mf) / float(points),
                         mf,
                         float(points) / float(data["max_points"]),
                     ]
-                )  # 9 temitems
+                )  # 9 items
         return rows
     else:
         return []

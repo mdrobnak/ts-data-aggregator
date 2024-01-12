@@ -12,7 +12,7 @@ def get_headers():
         "Bath",
         "Points",
         "Link",
-        "$/Point",
+        "Effective $/Point",
         "$ MF/Point",
         "$ Maintenance",
         "% Max Points",
