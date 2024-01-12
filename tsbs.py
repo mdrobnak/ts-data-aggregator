@@ -82,6 +82,11 @@ def process_listings(data):
             if re.search(".*([Aa]nnual).*", usage):
                 usage = "Annual"
                 pr_per_point = 1.0 * float(price) / float(points)
+            # Set MF for resort
+            if data.get("maint_fees"):
+                maint_fees = data.get("maint_fees")
+            else:
+                maint_fees = 0.00
             if (
                 price != -1
                 and price <= max_price
@@ -103,7 +108,7 @@ def process_listings(data):
                         link,
                         pr_per_point,
                         0.00,
-                        0.00,
+                        maint_fees,
                         float(points) / float(data["max_points"]),
                     ]
                 )
@@ -122,7 +127,10 @@ def get_maint(final_rows):
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0",
     }
     for row in final_rows:
-        if row[7].startswith(baseurl):
+        if row[7].startswith(baseurl) and row[10] > 0.0:
+            row[9] = float(row[10]) / float(row[6])
+            row[7] = '=HYPERLINK("' + row[7] + '", "TSBS")'
+        elif row[7].startswith(baseurl):
             print(row[7])
             page = requests.get(row[7], headers=headers)
             soup = BeautifulSoup(page.text, "html.parser")

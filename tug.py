@@ -98,6 +98,9 @@ def process_listings(data):
             if mf == "-1" or points == "-1" or freq == "unk":
                 print(eid, price, freq, points, mf)
 
+            # Set MF for resort
+            if data.get("maint_fees"):
+                mf = data.get("maint_fees")
             if (
                 mf != "-1"
                 and price <= max_price

@@ -71,6 +71,11 @@ def process_listings(data):
             if re.search(".*([Aa]nnual).*", td_array[freq]):
                 td_array[freq] = "Annual"
                 pr_per_point = 1.0 * float(td_array[price]) / float(td_array[points])
+            # Set MF for resort
+            if data.get("maint_fees"):
+                maint_fees = data.get("maint_fees")
+            else:
+                maint_fees = 0.0
             if (
                 int(td_array[beds]) == data["beds"]
                 and pr_per_point <= data["max_pr_per_point"]
@@ -87,7 +92,7 @@ def process_listings(data):
                         td_array[link],
                         pr_per_point,
                         0.0,
-                        0.0,
+                        maint_fees,
                         float(td_array[points]) / float(data["max_points"]),
                     ]
                 )  # 9 items
@@ -100,7 +105,10 @@ def process_listings(data):
 def get_maint(final_rows):
     baseurl = "https://www.timesharebrokersmls.com/"
     for row in final_rows:
-        if row[7].startswith(baseurl):
+        if row[7].startswith(baseurl) and row[10] > 0.0:
+            row[9] = float(row[10]) / float(row[6])
+            row[7] = '=HYPERLINK("' + row[7] + '", "TSP")'
+        elif row[7].startswith(baseurl):
             print(row[7])
             page = requests.get(row[7])
             row[7] = '=HYPERLINK("' + row[7] + '", "TSP")'

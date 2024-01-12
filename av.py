@@ -80,6 +80,7 @@ def process_listings(listings, data):
     points = 6
     link = 7
     pr_per_point = 8
+    mf_per_point_loc = 9
     maint = 10
 
     for row in listings:
@@ -92,6 +93,13 @@ def process_listings(listings, data):
         if re.search(".*([Aa]nnual).*", row[freq]):
             row[freq] = "Annual"
 
+        # Set MF for resort
+        if data.get("maint_fees"):
+            maint_fees = float(data.get("maint_fees"))
+            mf_per_point = maint_fees / float(points)
+        else:
+            maint_fees = row[maint]
+            mf_per_point = row[mf_per_point_loc]
         if (
             int(row[2]) <= max_price
             and row[1] == tgt_resort
@@ -111,8 +119,8 @@ def process_listings(listings, data):
                     int(row[points]),
                     row[link],
                     row[pr_per_point],
-                    row[9],
-                    row[10],
+                    mf_per_point,
+                    maint_fees,
                     float(row[6]) / float(data["max_points"]),
                 ]
             )
