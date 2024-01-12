@@ -90,6 +90,7 @@ def get_maint(final_rows):
         if row[7].startswith(baseurl):
             print(row[7])
             page = requests.get(row[7])
+            row[7] = '=HYPERLINK("' + row[7] + '", "TSP")'
             soup = BeautifulSoup(page.text, "html.parser")
             table = soup.find(id="MainContent_DetailsView2")
             if table is not None:

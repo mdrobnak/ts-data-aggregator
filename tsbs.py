@@ -125,6 +125,7 @@ def get_maint(final_rows):
             span = soup.find_all("span", style="color:#2A2929;font-size: 14px;")[6].text
             details = span.strip().replace("$", "").replace(",", "")
             maint = float(details)
+            row[7] = '=HYPERLINK("' + row[7] + '", "TSBS")'
             row[9] = maint / float(row[6])
             row[10] = maint
             time.sleep(0.25)

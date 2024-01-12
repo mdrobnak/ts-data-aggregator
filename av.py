@@ -101,6 +101,7 @@ def process_listings(listings, data):
             and int(row[6]) >= data["points"]
             and data["beds"] == row[beds]
         ):
+            row[7] = '=HYPERLINK("' + row[7] + '", "AV")'
             rows.append(
                 [
                     0,

@@ -111,7 +111,7 @@ def process_listings(data):
                         data["beds"],
                         data["beds"],
                         points,
-                        url,
+                        '=HYPERLINK("' + url + '", "TUG")',
                         float(price) / float(points),
                         float(mf) / float(points),
                         mf,

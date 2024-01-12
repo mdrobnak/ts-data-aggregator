@@ -132,6 +132,7 @@ def get_maint(final_rows):
     for row in final_rows:
         if row[7].startswith(baseurl):
             page = requests.get(row[7], headers=headers)
+            row[7] = '=HYPERLINK("' + row[7] + '", "STS")'
             soup = BeautifulSoup(page.text, "html.parser")
             table = soup.find(class_="resort_info")
             rows = table.select("tr + tr")
