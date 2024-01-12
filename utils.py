@@ -33,9 +33,9 @@ def minimize(rows, max_points):
         subset=["Resort", "List Price", "Usage", "Bed", "Bath", "Points"], inplace=True
     )
     # pprint.pprint(df)
-    for usage in df["Usage"].unique():
-        for points in df["Points"].unique():
-            print("Points: " + str(points))
+    for points in df["Points"].unique():
+        print("Points: " + str(points))
+        for usage in df["Usage"].unique():
             # Get just the rows which match the points in question
             # print("Find the rows with that point value and season...")
             df_points = df.loc[(df["Points"] == points) & (df["Usage"] == usage)]
