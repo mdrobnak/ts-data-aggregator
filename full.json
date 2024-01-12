@@ -1,6 +1,8 @@
 {
   "Boulevard 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 824,
+    "maint_fees": 711.61,
     "max_points": 9920,
     "names": {
       "av": "Hilton Grand Vacations Club on the Las Vegas Strip",
@@ -16,6 +18,8 @@
   },
   "Boulevard 2 Bedroom": {
     "beds": 2,
+    "closing_costs": 824,
+    "maint_fees": 1059.60,
     "max_points": 13440,
     "names": {
       "av": "Hilton Grand Vacations Club on the Las Vegas Strip",
@@ -31,6 +35,8 @@
   },
   "Elara 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 873,
+    "maint_fees": 980.00,
     "max_points": 14880,
     "names": {
       "display": "Elara, A Hilton Grand Vacations Club",
@@ -45,6 +51,8 @@
   },
   "Elara 2 Bedroom": {
     "beds": 2,
+    "closing_costs": 873,
+    "maint_fees": 1310.00,
     "max_points": 23040,
     "names": {
       "display": "Elara, A Hilton Grand Vacations Club",
@@ -59,6 +67,8 @@
   },
   "Grand Islander 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 1089,
+    "maint_fees": 1713.18,
     "max_points": 26880,
     "names": {
       "av": "Hilton Grand Vacations Club at Hilton Hawaiian Village-Grand Islander",
@@ -74,6 +84,8 @@
   },
   "Kings Land 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 924,
+    "maint_fees": 1575.00,
     "max_points": 23040,
     "names": {
       "av": "Hilton Grand Vacations Club at Kings Land",
@@ -89,6 +101,8 @@
   },
   "Kings Land 3 Bedroom": {
     "beds": 3,
+    "closing_costs": 924,
+    "maint_fees": 2650.00,
     "max_points": 36800,
     "names": {
       "av": "Hilton Grand Vacations Club at Kings Land",
@@ -104,6 +118,8 @@
   },
   "Ocean Tower 2 Bedroom": {
     "beds": 2,
+    "closing_costs": 924,
+    "maint_fees": 2149.43,
     "max_points": 38400,
     "names": {
       "display": "Ocean Tower at Hilton Waikoloa Village",
@@ -118,6 +134,8 @@
   },
   "Ocean Tower 3 Bedroom": {
     "beds": 3,
+    "closing_costs": 924,
+    "maint_fees": 3203.66,
     "max_points": 46000,
     "names": {
       "display": "Ocean Tower at Hilton Waikoloa Village",
@@ -132,6 +150,7 @@
   },
   "The District by Hilton Club 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 2104,
     "max_points": 14880,
     "names": {
       "display": "The District by Hilton Club",
@@ -146,6 +165,8 @@
   },
   "The District by Hilton Club 2 Bedroom": {
     "beds": 2,
+    "closing_costs": 2104,
+    "maint_fees": 2833.72,
     "max_points": 23040,
     "names": {
       "display": "The District by Hilton Club",
@@ -160,6 +181,8 @@
   },
   "The Residences by Hilton Club 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 1649,
+    "maint_fees": 3317.68,
     "max_points": 26880,
     "names": {
       "display": "The Residences by The Hilton Club",
@@ -174,6 +197,8 @@
   },
   "The Residences by Hilton Club Studio": {
     "beds": 0,
+    "closing_costs": 1649,
+    "maint_fees": 1968.81,
     "max_points": 23040,
     "names": {
       "display": "The Residences by The Hilton Club",
@@ -188,6 +213,8 @@
   },
   "West 57th Street by Hilton Club 1 Bedroom": {
     "beds": 1,
+    "closing_costs": 1624,
+    "maint_fees": 2847.47,
     "max_points": 26880,
     "names": {
       "display": "West 57th Street by Hilton Club",
@@ -202,6 +229,8 @@
   },
   "West 57th Street by Hilton Club Studio": {
     "beds": 0,
+    "closing_costs": 1624,
+    "maint_fees": 1810.29,
     "max_points": 11520,
     "names": {
       "display": "West 57th Street by Hilton Club",
