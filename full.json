@@ -216,6 +216,7 @@
     "closing_costs": 1624,
     "maint_fees": 2847.47,
     "max_points": 26880,
+    "max_pr_per_point": 1.00,
     "names": {
       "display": "West 57th Street by Hilton Club",
       "sts": "Hilton West 57th St",
@@ -232,6 +233,7 @@
     "closing_costs": 1624,
     "maint_fees": 1810.29,
     "max_points": 11520,
+    "max_pr_per_point": 1.00,
     "names": {
       "display": "West 57th Street by Hilton Club",
       "sts": "Hilton West 57th St",
