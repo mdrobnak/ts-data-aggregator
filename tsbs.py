@@ -3,6 +3,8 @@ import requests
 import re
 import time
 
+import utils
+
 
 def process_listings(data):
     baseurl = "https://www.timesharebrokersales.com/hilton-timeshare/"
@@ -96,20 +98,31 @@ def process_listings(data):
                 and points >= data["points"]
                 and pr_per_point <= data["max_pr_per_point"]
             ):
+                purchase_price = price + data["closing_costs"] + data["hilton_fees"]
+                purchase_price_per_pt = purchase_price / points
                 rows.append(
                     [
-                        0,
-                        data["names"]["display"],
-                        price,
-                        usage,
+                        '=HYPERLINK("'
+                        + link
+                        + '", "'
+                        + data["names"]["display"]
+                        + '")',
                         beds,
                         baths,
+                        usage,
                         points,
-                        link,
-                        pr_per_point,
-                        0.00,
-                        maint_fees,
                         float(points) / float(data["max_points"]),
+                        purchase_price_per_pt,
+                        0,  # mf_per_point - 7
+                        0,  # ten_yr_amort_per_pt - 8
+                        round(float(price)),
+                        data["closing_costs"],
+                        data["hilton_fees"],
+                        purchase_price,  # 12
+                        maint_fees,  # 13
+                        0,  # ten_yr_maint - 14
+                        0,  # ten_yr_cost - 15
+                        0,  # ten_yr_amort - 16
                     ]
                 )
 
@@ -121,26 +134,38 @@ def process_listings(data):
     return rows
 
 
-def get_maint(final_rows):
+def get_maint(final_rows, config):
     baseurl = "https://www.timesharebrokersales.com/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0",
     }
     for row in final_rows:
-        if row[7].startswith(baseurl) and row[10] > 0.0:
-            row[9] = float(row[10]) / float(row[6])
-            row[7] = '=HYPERLINK("' + row[7] + '", "TSBS")'
-        elif row[7].startswith(baseurl):
-            print(row[7])
-            page = requests.get(row[7], headers=headers)
-            soup = BeautifulSoup(page.text, "html.parser")
-            span = soup.find_all("span", style="color:#2A2929;font-size: 14px;")[6].text
-            details = span.strip().replace("$", "").replace(",", "")
-            maint = float(details)
-            row[7] = '=HYPERLINK("' + row[7] + '", "TSBS")'
-            row[9] = maint / float(row[6])
-            row[10] = maint
-            time.sleep(0.25)
+        link = row[0].split('"')[1]
+        if link.startswith(baseurl):
+            if link.startswith(baseurl) and row[13] > 0.0:
+                row[7] = float(row[13]) / float(row[4])
+            else:
+                print(link)
+                page = requests.get(link, headers=headers)
+                soup = BeautifulSoup(page.text, "html.parser")
+                span = soup.find_all("span", style="color:#2A2929;font-size: 14px;")[
+                    6
+                ].text
+                details = span.strip().replace("$", "").replace(",", "")
+                maint = float(details)
+                row[7] = maint / float(row[4])
+                row[13] = maint
+                time.sleep(0.25)
+            ten_yr_maint = utils.calc_ten_yr_maint(
+                row[13], row[3], config["maint_multiplier"]
+            )
+            ten_yr_cost = row[12] + ten_yr_maint
+            ten_yr_amort = ten_yr_cost / 10.0
+            ten_yr_amort_per_pt = ten_yr_amort / int(row[4])
+            row[8] = ten_yr_amort_per_pt
+            row[14] = ten_yr_maint
+            row[15] = ten_yr_cost
+            row[16] = ten_yr_amort
         else:
             continue
     # Gather Maintenance and Taxes from resulting page, add to spreadsheet.

@@ -80,7 +80,7 @@ def update_gs(service, spreadsheet_id, headers, final_rows):
                     "sheetId": sheet_gid,
                     "startRowIndex": 0,
                     "endRowIndex": 1,
-                    "endColumnIndex": 12,
+                    "endColumnIndex": 17,
                 },
                 "cell": {
                     "userEnteredFormat": {
@@ -99,8 +99,8 @@ def update_gs(service, spreadsheet_id, headers, final_rows):
             "repeatCell": {
                 "range": {
                     "sheetId": sheet_gid,
-                    "startColumnIndex": 11,
-                    "endColumnIndex": 12,
+                    "startColumnIndex": 5,
+                    "endColumnIndex": 6,
                 },
                 "cell": {
                     "userEnteredFormat": {
@@ -119,7 +119,7 @@ def update_gs(service, spreadsheet_id, headers, final_rows):
                     "sheetId": sheet_gid,
                     "startRowIndex": 1,
                     "endRowIndex": len(final_rows) + 1,
-                    "endColumnIndex": 12,
+                    "endColumnIndex": 17,
                 },
                 "cell": {
                     "userEnteredFormat": {
@@ -136,18 +136,23 @@ def update_gs(service, spreadsheet_id, headers, final_rows):
         },
     ]
     column_widths = [
-        {"columnNumber": 1, "width": 80},
-        {"columnNumber": 2, "width": 280},
-        {"columnNumber": 3, "width": 100},
+        {"columnNumber": 1, "width": 280},
+        {"columnNumber": 2, "width": 60},
+        {"columnNumber": 3, "width": 60},
         {"columnNumber": 4, "width": 100},
         {"columnNumber": 5, "width": 80},
-        {"columnNumber": 6, "width": 80},
-        {"columnNumber": 7, "width": 80},
+        {"columnNumber": 6, "width": 100},
+        {"columnNumber": 7, "width": 125},
         {"columnNumber": 8, "width": 100},
         {"columnNumber": 9, "width": 125},
-        {"columnNumber": 10, "width": 125},
-        {"columnNumber": 11, "width": 125},
-        {"columnNumber": 12, "width": 125},
+        {"columnNumber": 10, "width": 100},
+        {"columnNumber": 11, "width": 100},
+        {"columnNumber": 12, "width": 100},
+        {"columnNumber": 13, "width": 105},
+        {"columnNumber": 14, "width": 105},
+        {"columnNumber": 15, "width": 105},
+        {"columnNumber": 16, "width": 105},
+        {"columnNumber": 17, "width": 105},
     ]
 
     cw = [

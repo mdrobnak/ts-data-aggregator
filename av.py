@@ -3,6 +3,8 @@ import requests
 import re
 import pprint
 
+import utils
+
 
 def get_listings():
     url = "https://010.87c.myftpupload.com/hilton-listings-by-points/"
@@ -96,32 +98,49 @@ def process_listings(listings, data):
         # Set MF for resort
         if data.get("maint_fees"):
             maint_fees = float(data.get("maint_fees"))
-            mf_per_point = maint_fees / float(points)
+            mf_per_point = maint_fees / float(row[points])
         else:
             maint_fees = row[maint]
             mf_per_point = row[mf_per_point_loc]
         if (
-            int(row[2]) <= max_price
-            and row[1] == tgt_resort
-            and int(row[6]) >= data["points"]
-            and data["beds"] == row[beds]
+            int(row[price]) <= max_price
+            and row[resort] == tgt_resort
+            and int(row[points]) >= data["points"]
+            and int(data["beds"]) == int(row[beds])
             and row[pr_per_point] <= data["max_pr_per_point"]
         ):
-            row[link] = '=HYPERLINK("' + row[link] + '", "AV")'
+
+            row[link] = (
+                '=HYPERLINK("' + row[link] + '", "' + data["names"]["display"] + '")'
+            )
+            purchase_price = row[price] + data["closing_costs"] + data["hilton_fees"]
+            purchase_price_per_pt = purchase_price / float(row[points])
+            ten_yr_maint = utils.calc_ten_yr_maint(
+                maint_fees, row[freq], data["maint_multiplier"]
+            )
+            ten_yr_cost = purchase_price + ten_yr_maint
+            ten_yr_amort = ten_yr_cost / 10.0
+            ten_yr_amort_per_pt = ten_yr_amort / float(row[points])
+
             rows.append(
                 [
-                    0,
-                    data["names"]["display"],
-                    row[price],
-                    row[freq],
+                    row[link],
                     int(row[beds]),
                     int(row[baths]),
+                    row[freq],
                     int(row[points]),
-                    row[link],
-                    row[pr_per_point],
-                    mf_per_point,
-                    maint_fees,
                     float(row[6]) / float(data["max_points"]),
+                    purchase_price_per_pt,
+                    mf_per_point,
+                    ten_yr_amort_per_pt,
+                    row[price],
+                    data["closing_costs"],
+                    data["hilton_fees"],
+                    purchase_price,
+                    maint_fees,
+                    ten_yr_maint,
+                    ten_yr_cost,
+                    ten_yr_amort,
                 ]
             )
     return rows

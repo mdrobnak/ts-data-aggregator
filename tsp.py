@@ -80,20 +80,38 @@ def process_listings(data):
                 int(td_array[beds]) == data["beds"]
                 and pr_per_point <= data["max_pr_per_point"]
             ):
+                formatted_link = (
+                    '=HYPERLINK("'
+                    + td_array[link]
+                    + '", "'
+                    + data["names"]["display"]
+                    + '")'
+                )
+                purchase_price = (
+                    round(float(td_array[price]))
+                    + data["closing_costs"]
+                    + data["hilton_fees"]
+                )
+                purchase_price_per_pt = purchase_price / int(td_array[points])
                 rows.append(
                     [
-                        td_array[0],
-                        data["names"]["display"],
-                        round(float(td_array[price])),
-                        td_array[freq],
+                        formatted_link,
                         int(td_array[beds]),
                         int(td_array[baths]),
+                        td_array[freq],
                         int(td_array[points]),
-                        td_array[link],
-                        pr_per_point,
-                        0.0,
-                        maint_fees,
                         float(td_array[points]) / float(data["max_points"]),
+                        purchase_price_per_pt,
+                        0,  # mf_per_point - 7
+                        0,  # ten_yr_amort_per_pt - 8
+                        round(float(td_array[price])),
+                        data["closing_costs"],
+                        data["hilton_fees"],
+                        purchase_price,  # 12
+                        maint_fees,  # 13
+                        0,  # ten_yr_maint - 14
+                        0,  # ten_yr_cost - 15
+                        0,  # ten_yr_amort - 16
                     ]
                 )  # 9 items
             # Zero holders for Maintenance

@@ -3,6 +3,8 @@ import requests
 import re
 import time
 
+import utils
+
 
 def get_listings():
     url = "https://sellingtimeshares.net/category/listings/hilton/"
@@ -99,51 +101,72 @@ def process_listings(listings, data):
             and row[price] <= max_price
             and row[pr_per_point] <= data["max_pr_per_point"]
         ):
+            row[link] = (
+                '=HYPERLINK("' + row[link] + '", "' + data["names"]["display"] + '")'
+            )
+            purchase_price = row[price] + data["closing_costs"] + data["hilton_fees"]
+            purchase_price_per_pt = purchase_price / int(row[points])
             rows.append(
                 [
-                    0,
-                    data["names"]["display"],
-                    round(float(row[price])),
-                    row[usage],
+                    row[link],
                     int(row[beds]),
                     int(row[baths]),
-                    int(row[points]),
-                    row[link],
-                    row[pr_per_point],
-                    0,
-                    maint_fees,
+                    row[usage],
+                    int(row[points]),  # 4
                     float(row[points]) / float(data["max_points"]),
+                    purchase_price_per_pt,
+                    0,  # mf_per_point - 7
+                    0,  # ten_yr_amort_per_pt - 8
+                    round(float(row[price])),
+                    data["closing_costs"],
+                    data["hilton_fees"],
+                    purchase_price,  # 12
+                    maint_fees,  # 13
+                    0,  # ten_yr_maint - 14
+                    0,  # ten_yr_cost - 15
+                    0,  # ten_yr_amort - 16
                 ]
             )
     return rows
 
 
-def get_maint(final_rows):
+def get_maint(final_rows, config):
     baseurl = "https://sellingtimeshares.net/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0",
     }
+
     for row in final_rows:
-        if row[7].startswith(baseurl) and row[10] > 0.0:
-            row[9] = float(row[10]) / float(row[6])
-            row[7] = '=HYPERLINK("' + row[7] + '", "STS")'
-        elif row[7].startswith(baseurl):
-            page = requests.get(row[7], headers=headers)
-            row[7] = '=HYPERLINK("' + row[7] + '", "STS")'
-            soup = BeautifulSoup(page.text, "html.parser")
-            table = soup.find(class_="resort_info")
-            rows = table.select("tr + tr")
-            details = (
-                rows[8]
-                .find_all("td")[0]
-                .text.strip()
-                .split()[0]
-                .replace("$", "")
-                .replace(",", "")
+        link = row[0].split('"')[1]
+        if link.startswith(baseurl):
+            if link.startswith(baseurl) and row[13] > 0.0:
+                row[7] = float(row[13]) / float(row[4])
+            else:
+                page = requests.get(link, headers=headers)
+                soup = BeautifulSoup(page.text, "html.parser")
+                table = soup.find(class_="resort_info")
+                rows = table.select("tr + tr")
+                details = (
+                    rows[8]
+                    .find_all("td")[0]
+                    .text.strip()
+                    .split()[0]
+                    .replace("$", "")
+                    .replace(",", "")
+                )
+                maint = float(details)
+                row[7] = maint / float(row[4])
+                row[13] = maint
+            ten_yr_maint = utils.calc_ten_yr_maint(
+                row[13], row[3], config["maint_multiplier"]
             )
-            maint = float(details)
-            row[9] = maint / float(row[6])
-            row[10] = maint
+            ten_yr_cost = row[12] + ten_yr_maint
+            ten_yr_amort = ten_yr_cost / 10.0
+            ten_yr_amort_per_pt = ten_yr_amort / int(row[4])
+            row[8] = ten_yr_amort_per_pt
+            row[14] = ten_yr_maint
+            row[15] = ten_yr_cost
+            row[16] = ten_yr_amort
             time.sleep(0.25)
         else:
             continue

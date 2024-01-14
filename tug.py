@@ -2,14 +2,18 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
+import utils
+
 
 def process_listings(data):
     baseurl = "https://www.tug2.com/timesharemarketplace/search?"
     mincost = 1
     max_price = int(data["price_factor"] * data["max_points"])
     baseurl = "https://www.tug2.com/timesharemarketplace/search?PointProgramResortId=15022&ForSale=True&OrderBy=Price&HasPointsOwnership=True&"
-    if data["beds"] == 1:
-        unit_type = "StudioUnit=True&OneBedroom=True"
+    if data["beds"] == 0:
+        unit_type = "StudioUnit=True"
+    elif data["beds"] == 1:
+        unit_type = "OneBedroom=True"
     elif data["beds"] == 2:
         unit_type = "TwoBedroom=True"
     elif data["beds"] == 3:
@@ -109,20 +113,37 @@ def process_listings(data):
                 and int(points) >= int(data["points"])
                 and pr_per_point <= data["max_pr_per_point"]
             ):
+                listing_link = (
+                    '=HYPERLINK("' + url + '", "' + data["names"]["display"] + '")'
+                )
+                purchase_price = price + data["closing_costs"] + data["hilton_fees"]
+                purchase_price_per_pt = purchase_price / int(points)
+                ten_yr_maint = utils.calc_ten_yr_maint(
+                    mf, freq, data["maint_multiplier"]
+                )
+                ten_yr_cost = purchase_price + ten_yr_maint
+                ten_yr_amort = ten_yr_cost / 10.0
+                ten_yr_amort_per_pt = ten_yr_amort / int(points)
+
                 rows.append(
                     [
-                        0,
-                        data["names"]["display"],
-                        price,
+                        listing_link,
+                        data["beds"],
+                        data["beds"],
                         freq,
-                        data["beds"],
-                        data["beds"],
                         points,
-                        '=HYPERLINK("' + url + '", "TUG")',
-                        pr_per_point,
-                        float(mf) / float(points),
-                        mf,
                         float(points) / float(data["max_points"]),
+                        purchase_price_per_pt,
+                        float(mf) / float(points),
+                        ten_yr_amort_per_pt,
+                        price,
+                        data["closing_costs"],
+                        data["hilton_fees"],
+                        purchase_price,
+                        mf,
+                        ten_yr_maint,
+                        ten_yr_cost,
+                        ten_yr_amort,
                     ]
                 )  # 9 items
         return rows
