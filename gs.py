@@ -18,6 +18,9 @@ def get_or_create_credentials(scopes):
     # time.
     if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", scopes)
+        creds.refresh(Request())
+        with open("token.json", "w") as token:
+            token.write(creds.to_json())
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
