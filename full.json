@@ -2,166 +2,216 @@
   "Boulevard 1 Bedroom": {
     "beds": 1,
     "max_points": 9920,
-    "name": "HGV Club on the Boulevard",
+    "names": {
+      "av": "Hilton Grand Vacations Club on the Las Vegas Strip",
+      "display": "HGV Club on the Boulevard",
+      "sts": "Hilton Las Vegas Strip",
+      "tsbs": "hilton-grand-vacations-club-las-vegas-strip",
+      "tsp": "HGVCLUB+ON+THE+BOULEVARD"
+    },
     "points": 7680,
     "price_factor": 1,
-    "query_name": "HGVCLUB+ON+THE+BOULEVARD",
     "season": "Platinum",
-    "tsbs_name": "hilton-grand-vacations-club-las-vegas-strip",
     "tug_resort_id": 13065
   },
   "Boulevard 2 Bedroom": {
     "beds": 2,
     "max_points": 13440,
-    "name": "HGV Club on the Boulevard",
+    "names": {
+      "av": "Hilton Grand Vacations Club on the Las Vegas Strip",
+      "display": "HGV Club on the Boulevard",
+      "sts": "Hilton Las Vegas Strip",
+      "tsbs": "hilton-grand-vacations-club-las-vegas-strip",
+      "tsp": "HGVCLUB+ON+THE+BOULEVARD"
+    },
     "points": 11000,
     "price_factor": 1,
-    "query_name": "HGVCLUB+ON+THE+BOULEVARD",
     "season": "Platinum",
-    "tsbs_name": "hilton-grand-vacations-club-las-vegas-strip",
     "tug_resort_id": 13065
   },
   "Elara 1 Bedroom": {
     "beds": 1,
     "max_points": 14880,
-    "name": "Elara, A Hilton Grand Vacations Club",
+    "names": {
+      "display": "Elara, A Hilton Grand Vacations Club",
+      "sts": "Hilton Elara",
+      "tsbs": "hilton-elara-by-hilton-grand-vacation-club",
+      "tsp": "ELARA++A+HILTON+GRAND+VACATION+CLUB+HGVC"
+    },
     "points": 11000,
     "price_factor": 0.95,
-    "query_name": "ELARA++A+HILTON+GRAND+VACATION+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "hilton-elara-by-hilton-grand-vacation-club",
     "tug_resort_id": 14790
   },
   "Elara 2 Bedroom": {
     "beds": 2,
     "max_points": 23040,
-    "name": "Elara, A Hilton Grand Vacations Club",
+    "names": {
+      "display": "Elara, A Hilton Grand Vacations Club",
+      "sts": "Hilton Elara",
+      "tsbs": "hilton-elara-by-hilton-grand-vacation-club",
+      "tsp": "ELARA++A+HILTON+GRAND+VACATION+CLUB+HGVC"
+    },
     "points": 14000,
     "price_factor": 1.1,
-    "query_name": "ELARA++A+HILTON+GRAND+VACATION+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "hilton-elara-by-hilton-grand-vacation-club",
     "tug_resort_id": 14790
   },
   "Grand Islander 1 Bedroom": {
     "beds": 1,
     "max_points": 26880,
-    "name": "The Grand Islander by Hilton Grand Vacations",
+    "names": {
+      "av": "Hilton Grand Vacations Club at Hilton Hawaiian Village-Grand Islander",
+      "display": "The Grand Islander by Hilton Grand Vacations",
+      "sts": "Hilton Grand Islander",
+      "tsbs": "hgvc-the-grand-islander-by-hilton-grand-vacations-club",
+      "tsp": "THE+GRAND+ISLANDER+BY+HILTON+GRAND+VACATIONS"
+    },
     "points": 20000,
     "price_factor": 0.9,
-    "query_name": "THE+GRAND+ISLANDER+BY+HILTON+GRAND+VACATIONS",
     "season": "Platinum",
-    "tsbs_name": "hgvc-the-grand-islander-by-hilton-grand-vacations-club",
     "tug_resort_id": 15177
   },
   "Kings Land 1 Bedroom": {
     "beds": 1,
     "max_points": 23040,
-    "name": "Kings Land By Hilton Grand Vacations",
+    "names": {
+      "av": "Hilton Grand Vacations Club at Kings Land",
+      "display": "Kings Land By Hilton Grand Vacations",
+      "sts": "Hilton King’s Land",
+      "tsbs": "kings-land-by-hilton-grand-vacations-club",
+      "tsp": "KINGS+LAND+BY+HILTON+GRAND+VACATIONS+CLUB+HGVC"
+    },
     "points": 14000,
     "price_factor": 1.1,
-    "query_name": "KINGS+LAND+BY+HILTON+GRAND+VACATIONS+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "kings-land-by-hilton-grand-vacations-club",
     "tug_resort_id": 14788
   },
   "Kings Land 3 Bedroom": {
     "beds": 3,
     "max_points": 36800,
-    "name": "Kings Land By Hilton Grand Vacations",
+    "names": {
+      "av": "Hilton Grand Vacations Club at Kings Land",
+      "display": "Kings Land By Hilton Grand Vacations",
+      "sts": "Hilton King’s Land",
+      "tsbs": "kings-land-by-hilton-grand-vacations-club",
+      "tsp": "KINGS+LAND+BY+HILTON+GRAND+VACATIONS+CLUB+HGVC"
+    },
     "points": 27000,
     "price_factor": 1,
-    "query_name": "KINGS+LAND+BY+HILTON+GRAND+VACATIONS+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "kings-land-by-hilton-grand-vacations-club",
     "tug_resort_id": 14788
   },
   "Ocean Tower 2 Bedroom": {
     "beds": 2,
     "max_points": 38400,
-    "name": "Ocean Tower at Hilton Waikoloa Village",
+    "names": {
+      "display": "Ocean Tower at Hilton Waikoloa Village",
+      "sts": "Hilton Ocean Tower",
+      "tsbs": "ocean-tower-by-hilton-grand-vacations-club",
+      "tsp": "Ocean+Tower+at+Hilton+Waikoloa+Village"
+    },
     "points": 20000,
     "price_factor": 0.8,
-    "query_name": "Ocean+Tower+at+Hilton+Waikoloa+Village",
     "season": "Platinum",
-    "tsbs_name": "ocean-tower-by-hilton-grand-vacations-club",
     "tug_resort_id": 15298
   },
   "Ocean Tower 3 Bedroom": {
     "beds": 3,
     "max_points": 46000,
-    "name": "Ocean Tower at Hilton Waikoloa Village",
+    "names": {
+      "display": "Ocean Tower at Hilton Waikoloa Village",
+      "sts": "Hilton Ocean Tower",
+      "tsbs": "ocean-tower-by-hilton-grand-vacations-club",
+      "tsp": "Ocean+Tower+at+Hilton+Waikoloa+Village"
+    },
     "points": 36000,
     "price_factor": 0.8,
-    "query_name": "Ocean+Tower+at+Hilton+Waikoloa+Village",
     "season": "Platinum",
-    "tsbs_name": "ocean-tower-by-hilton-grand-vacations-club",
     "tug_resort_id": 15298
   },
   "The District by Hilton Club 1 Bedroom": {
     "beds": 1,
     "max_points": 14880,
-    "name": "The District by Hilton Club",
+    "names": {
+      "display": "The District by Hilton Club",
+      "sts": "Hilton Club District",
+      "tsbs": "the-district-a-hilton-club",
+      "tsp": "The+District+by+Hilton+Club"
+    },
     "points": 11000,
     "price_factor": 0.8,
-    "query_name": "The+District+by+Hilton+Club",
     "season": "N",
-    "tsbs_name": "the-district-a-hilton-club",
     "tug_resort_id": 15292
   },
   "The District by Hilton Club 2 Bedroom": {
     "beds": 2,
     "max_points": 23040,
-    "name": "The District by Hilton Club",
+    "names": {
+      "display": "The District by Hilton Club",
+      "sts": "Hilton Club District",
+      "tsbs": "the-district-a-hilton-club",
+      "tsp": "The+District+by+Hilton+Club"
+    },
     "points": 23000,
     "price_factor": 0.8,
-    "query_name": "The+District+by+Hilton+Club",
     "season": "N",
-    "tsbs_name": "the-district-a-hilton-club",
     "tug_resort_id": 15292
   },
   "The Residences by Hilton Club 1 Bedroom": {
     "beds": 1,
     "max_points": 26880,
-    "name": "The Residences by The Hilton Club",
+    "names": {
+      "display": "The Residences by The Hilton Club",
+      "sts": "Hilton Club New York Residences",
+      "tsbs": "the-residences-by-hilton-club",
+      "tsp": "Residences+by+Hilton+Club+The"
+    },
     "points": 20000,
     "price_factor": 0.8,
-    "query_name": "Residences+by+Hilton+Club+The",
     "season": "Platinum",
-    "tsbs_name": "the-residences-by-hilton-club",
     "tug_resort_id": 15285
   },
   "The Residences by Hilton Club Studio": {
     "beds": 0,
     "max_points": 23040,
-    "name": "The Residences by The Hilton Club",
+    "names": {
+      "display": "The Residences by The Hilton Club",
+      "sts": "Hilton Club New York Residences",
+      "tsbs": "the-residences-by-hilton-club",
+      "tsp": "Residences+by+Hilton+Club+The"
+    },
     "points": 11500,
     "price_factor": 0.8,
-    "query_name": "Residences+by+Hilton+Club+The",
     "season": "Platinum",
-    "tsbs_name": "the-residences-by-hilton-club",
     "tug_resort_id": 15285
   },
   "West 57th Street by Hilton Club 1 Bedroom": {
     "beds": 1,
     "max_points": 26880,
-    "name": "West 57th Street by Hilton Club",
+    "names": {
+      "display": "West 57th Street by Hilton Club",
+      "sts": "Hilton West 57th St",
+      "tsbs": "west-57th-street-hilton-grand-vacations-club",
+      "tsp": "WEST+57TH+STREET+BY+HILTON+CLUB+HGVC"
+    },
     "points": 20000,
     "price_factor": 0.8,
-    "query_name": "WEST+57TH+STREET+BY+HILTON+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "west-57th-street-hilton-grand-vacations-club",
     "tug_resort_id": 14855
   },
   "West 57th Street by Hilton Club Studio": {
     "beds": 0,
     "max_points": 11520,
-    "name": "West 57th Street by Hilton Club",
+    "names": {
+      "display": "West 57th Street by Hilton Club",
+      "sts": "Hilton West 57th St",
+      "tsbs": "west-57th-street-hilton-grand-vacations-club",
+      "tsp": "WEST+57TH+STREET+BY+HILTON+CLUB+HGVC"
+    },
     "points": 8000,
     "price_factor": 0.8,
-    "query_name": "WEST+57TH+STREET+BY+HILTON+CLUB+HGVC",
     "season": "Platinum",
-    "tsbs_name": "west-57th-street-hilton-grand-vacations-club",
     "tug_resort_id": 14855
   }
 }

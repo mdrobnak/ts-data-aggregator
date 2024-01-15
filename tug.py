@@ -105,7 +105,7 @@ def process_listings(data):
                 rows.append(
                     [
                         0,
-                        data["name"],
+                        data["names"]["display"],
                         price,
                         freq,
                         data["beds"],

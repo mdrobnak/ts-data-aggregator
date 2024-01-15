@@ -18,7 +18,7 @@ def process_listings(data):
     url = (
         baseurl
         + "Search/N/"
-        + data["query_name"]
+        + data["names"]["tsp"]
         + "/N/gt/"
         + str(data["points"])
         + "/"
@@ -65,7 +65,7 @@ def process_listings(data):
                 rows.append(
                     [
                         td_array[0],
-                        data["name"],
+                        data["names"]["display"],
                         round(float(td_array[price])),
                         td_array[freq],
                         int(td_array[beds]),

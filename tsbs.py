@@ -17,9 +17,9 @@ def process_listings(data):
     else:
         unit_type = "FourBedroom=True"
 
-    if data.get("tsbs_name") is None:
+    if data["names"].get("tsbs") is None:
         return []
-    url = baseurl + str(data["tsbs_name"])
+    url = baseurl + str(data["names"]["tsbs"])
     rows = []
     # Find unique point levels returned
     # Find unique prices per point level
@@ -90,7 +90,7 @@ def process_listings(data):
                 rows.append(
                     [
                         0,
-                        data["name"],
+                        data["names"]["display"],
                         price,
                         usage,
                         beds,

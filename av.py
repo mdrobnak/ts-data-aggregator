@@ -67,16 +67,10 @@ def get_listings():
 def process_listings(listings, data):
     max_price = int(data["price_factor"] * data["max_points"])
     rows = []
-    if data["name"] == "HGV Club on the Boulevard":
-        tgt_resort = "Hilton Grand Vacations Club on the Las Vegas Strip"
-    elif data["name"] == "The Grand Islander by Hilton Grand Vacations":
-        tgt_resort = (
-            "Hilton Grand Vacations Club at Hilton Hawaiian Village-Grand Islander"
-        )
-    elif data["name"] == "Kings Land By Hilton Grand Vacations":
-        tgt_resort = "Hilton Grand Vacations Club at Kings Land"
+    if data["names"].get("av"):
+        tgt_resort = data["names"]["av"]
     else:
-        tgt_resort = data["name"]
+        tgt_resort = data["names"]["display"]
 
     resort = 1
     price = 2
@@ -105,7 +99,7 @@ def process_listings(listings, data):
             rows.append(
                 [
                     0,
-                    data["name"],
+                    data["names"]["display"],
                     row[price],
                     row[freq],
                     int(row[beds]),
