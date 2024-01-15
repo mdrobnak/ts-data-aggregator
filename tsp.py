@@ -118,35 +118,3 @@ def process_listings(data):
         return rows
     else:
         return []
-
-
-def get_maint(final_rows):
-    baseurl = "https://www.timesharebrokersmls.com/"
-    for row in final_rows:
-        if row[7].startswith(baseurl) and row[10] > 0.0:
-            row[9] = float(row[10]) / float(row[6])
-            row[7] = '=HYPERLINK("' + row[7] + '", "TSP")'
-        elif row[7].startswith(baseurl):
-            print(row[7])
-            page = requests.get(row[7])
-            row[7] = '=HYPERLINK("' + row[7] + '", "TSP")'
-            soup = BeautifulSoup(page.text, "html.parser")
-            table = soup.find(id="MainContent_DetailsView2")
-            if table is not None:
-                detail_rows = [
-                    [td.text.strip() for td in row.find_all("td")]
-                    for row in table.select("tr + tr")
-                ]
-
-                for details in detail_rows:
-                    if details[0].strip() == "Maintenance":
-                        maint = float(details[1])
-                    if details[0].strip() == "Taxes":
-                        taxes = float(details[1])
-                        row[9] = (maint + taxes) / float(row[6])
-                        row[10] = maint + taxes
-            time.sleep(0.25)
-        else:
-            continue
-    # Gather Maintenance and Taxes from resulting page, add to spreadsheet.
-    return final_rows

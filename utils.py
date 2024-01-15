@@ -1,5 +1,8 @@
+from bs4 import BeautifulSoup
+import requests
 import pandas
 import pprint
+import time
 
 
 def calc_ten_yr_maint(maint_fee, usage, mm):
@@ -99,4 +102,87 @@ def minimize(rows, max_points):
                 final_rows.append(l)
     # print("Returned final rows:")
     # pprint.pprint(final_rows)
+    return final_rows
+
+
+def get_sts_maint(url):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0",
+    }
+    page = requests.get(url, headers=headers)
+    soup = BeautifulSoup(page.text, "html.parser")
+    table = soup.find(class_="resort_info")
+    rows = table.select("tr + tr")
+    details = (
+        rows[8]
+        .find_all("td")[0]
+        .text.strip()
+        .split()[0]
+        .replace("$", "")
+        .replace(",", "")
+    )
+    maint = float(details)
+    return maint
+
+
+def get_tsp_maint(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, "html.parser")
+    table = soup.find(id="MainContent_DetailsView2")
+    if table is not None:
+        detail_rows = [
+            [td.text.strip() for td in row.find_all("td")]
+            for row in table.select("tr + tr")
+        ]
+
+        for details in detail_rows:
+            if details[0].strip() == "Maintenance":
+                maint = float(details[1])
+            if details[0].strip() == "Taxes":
+                taxes = float(details[1])
+    else:
+        maint = 0
+        taxes = 0
+    return maint + taxes
+
+
+def get_tsbs_maint(url):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0",
+    }
+    page = requests.get(url, headers=headers)
+    soup = BeautifulSoup(page.text, "html.parser")
+    span = soup.find_all("span", style="color:#2A2929;font-size: 14px;")[6].text
+    details = span.strip().replace("$", "").replace(",", "")
+    maint = float(details)
+    return maint
+
+
+def get_maint(final_rows, config):
+    stsurl = "https://sellingtimeshares.net/"
+    tspurl = "https://www.timesharebrokersmls.com/"
+    tsbsurl = "https://www.timesharebrokersales.com/"
+
+    for row in final_rows:
+        link = row[0].split('"')[1]
+        if row[13] > 0.0:
+            row[7] = float(row[13]) / float(row[4])
+        else:
+            if link.startswith(stsurl):
+                maint = get_sts_maint(link)
+            elif link.startswith(tspurl):
+                maint = get_tsp_maint(link)
+            elif link.startswith(tsbsurl):
+                maint = get_tsbs_maint(link)
+            row[13] = maint
+            row[7] = float(row[13]) / float(row[4])
+        ten_yr_maint = calc_ten_yr_maint(row[13], row[3], config["maint_multiplier"])
+        ten_yr_cost = row[12] + ten_yr_maint
+        ten_yr_amort = ten_yr_cost / 10.0
+        ten_yr_amort_per_pt = ten_yr_amort / int(row[4])
+        row[8] = ten_yr_amort_per_pt
+        row[14] = ten_yr_maint
+        row[15] = ten_yr_cost
+        row[16] = ten_yr_amort
+        time.sleep(0.25)
     return final_rows

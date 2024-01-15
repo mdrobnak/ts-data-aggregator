@@ -54,9 +54,7 @@ with open("full.json") as json_file:
         time.sleep(0.25)
 
 # Get the lowest cost for each point value
-results = sts.get_maint(results)
-results = tsp.get_maint(results)
-results = tsbs.get_maint(results)
+results = utils.get_maint(results, config)
 results.sort(key=operator.itemgetter(8, 7))
 print("Updating Google Sheets")
 gs.update_gs(service, google_spreadsheet_id, headers, results)
