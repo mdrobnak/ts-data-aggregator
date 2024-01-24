@@ -179,6 +179,22 @@
     "season": "N",
     "tug_resort_id": 15292
   },
+  "The Quin by Hilton Club Studio": {
+    "beds": 0,
+    "closing_costs": 1649,
+    "maint_fees": 2345.75,
+    "max_points": 23040,
+    "names": {
+      "display": "The Quin by The Hilton Club",
+      "sts": "Hilton Club New York",
+      "tsbs": "the-quin-central-park-by-hilton-club",
+      "tsp": "Hilton+Club+The+Quin+New+York"
+    },
+    "points": 11500,
+    "price_factor": 0.8,
+    "season": "Platinum",
+    "tug_resort_id": 14655
+  },
   "The Residences by Hilton Club 1 Bedroom": {
     "beds": 1,
     "closing_costs": 1649,
