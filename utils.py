@@ -74,7 +74,7 @@ def minimize(rows, max_points):
     )
     # pprint.pprint(df)
     for points in df["Points"].unique():
-        print("Points: " + str(points))
+        print("  Points: " + str(points))
         for usage in df["Usage"].unique():
             # Get just the rows which match the points in question
             # print("Find the rows with that point value and season...")
