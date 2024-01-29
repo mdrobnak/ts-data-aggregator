@@ -168,6 +168,7 @@ def get_maint(final_rows, config):
         if row[13] > 0.0:
             row[7] = float(row[13]) / float(row[4])
         else:
+            print("Getting data from:", link)
             if link.startswith(stsurl):
                 maint = get_sts_maint(link)
             elif link.startswith(tspurl):
