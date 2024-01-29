@@ -58,14 +58,17 @@ def process_listings(data):
                 .replace(",", "")
             )
             page_data = el.find_all(class_="col-md-2")[1]
-            price = round(
-                float(
-                    page_data.find("strong")
-                    .text.replace("$", "")
-                    .replace(",", "")
-                    .strip()
-                )
+            # Price can be the word FREE so that's fun...
+            price_text = (
+                page_data.find("strong").text.replace("$", "").replace(",", "").strip()
             )
+            try:
+                price = round(float(price_text))
+            except (ValueError):
+                if price_text == "FREE":
+                    price = 0.00
+                else:
+                    print("Invalid price:", price_text)
             mf = page_data.find("small")
             mf.find("span").decompose()
             mf = float(mf.text.replace("$", "").replace(",", "").strip())
